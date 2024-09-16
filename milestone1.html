@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--titled name-->
+    <title>Milestone 1 - Displaying JSON</title>
+    <!--added font for dropdown arrow-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--added font, adobe fonts-->
+    <link rel="stylesheet" href="https://use.typekit.net/oma1ujq.css">
+    <!--css style for consistency-->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!--css layout for milestone 1, will soon be changed to direct file after graded-->
+    <!--if needed to access milestone 1 css on its own, directory is under /milestone1.css-->
+
+    <style>
+        .container {
+        margin: 80px 0 0 20px ; 
+        /*margins added so it does not stick the left side of the screen*/
+        /*purely for visual appeal, not required*/
+        }
+
+        #m1 h2, #bookList h2 {
+            font-size: 24px;
+        }
+        .bookPreviewLink { /*link before*/
+            font-variation-settings: 'wght' 400;
+            color: #7a7a7a;
+        }
+
+        .bookPreviewLink:hover { /*link after hover; effect to give empahsis on a clickable link*/
+            font-variation-settings: 'wght' 700;
+            color: black;
+        }
+
+        .book, .bookItem { /*styling to prevent too much overflow and visual appeal*/
+            border: 1px solid #ccc;
+            background-color: #fff;
+            text-align: left;
+            max-width: 98.5%; /*personal preference, adjusts to size of window*/
+            margin-bottom: 10px; /*added space for visual seperation appeal*/
+        }
+
+        .book img, .bookItem img { /*book image styling so it does not stick to the edges, for visual appeal*/
+            margin: 10px 0 10px 10px;
+            display: block;
+        }
+
+        .book h3, .bookItem h3{ /*h3 text styling, prevent sticking to left*/
+            font-size: 25px;
+            margin-left: 10px;
+        }
+
+        .book h4 { /*h4 text styling*/
+        font-size: 20px;
+        margin-left: 10px;
+        }
+        
+        .book p, .bookItem p{ /*p text styling*/
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        #bookList { /* applies the following to all appended data under #bookList. */
+            display: block;
+            justify-content: space-between;
+        }
+    
+    </style>
+
+</head>
+<body>
+    <header>
+        <!--navigation bar-->
+        <nav class="navbar">
+            <!--initials/logo, top left-->
+            <div class="logo">
+                <h1>WA</h1>
+            </div>
+            <!--navigation links, top right, restructured to redirect to home page correctly -->
+            <ul class="navLinks">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li class="dropdown">
+                    <!--milestones dropdown for ease in navigation-->
+                    <a href="index.html#milestones" class="dropdownButton">
+                        Milestones &MediumSpace;<i class="fas fa-chevron-down"></i></a> <!--down arrow-->
+
+                        <!--dropdown container, contains milestones 1 - 4 -->
+                    <div class="dropdownContainer">
+                        <a href="milestone1.html">Milestone 1</a>
+                        <a href="milestone2.html">Milestone 2</a>
+                        <a href="milestone3.html">Milestone 3</a>
+                        <a href="milestone4.html">Milestone 4</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--milestone 1 - google books-->
+    <!--reference JS script below/underneath-->
+    <section id="m1" class="container">
+        <h2>Milestone 1 - Google Books</h2>
+        <h3>Book Details from Single Book, Google Books</h3>
+        <div id="googleBooksData"></div>
+        &nbsp;
+        <h3>Book Details from Google Books Search List</h3>
+        &nbsp;
+        <div id="bookList"></div>
+        &nbsp;
+    </section>
+</body>
+
+<!-- jQuery implentation-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!--jQuery/JSON/Javascript usage, must not be seperate per instructions-->
+<!--will soon be changed to direct file after graded-->
+<!--if needed to access javascript alone, directory is /milestone1.js-->
+
+<script>
+    $(document).ready(function () {
+        //fetch google books book.json
+    $.getJSON('json_m1/google-books-book.json', function (data) {
+
+        //for simplicity and ease of editing/debugging, all data values are assigned to *var* variables
+        var title = data.volumeInfo.title;
+        var subtitle = data.volumeInfo.subtitle;
+        var authors = data.volumeInfo.authors.join(', ');
+        var description = data.volumeInfo.description;
+        var publishedDate = data.volumeInfo.publishedDate;
+        var isbn10 = data.volumeInfo.industryIdentifiers[0].identifier;
+        var isbn13 = data.volumeInfo.industryIdentifiers[1].identifier;
+        var pageCount = data.volumeInfo.pageCount;
+        var categories = data.volumeInfo.categories.join(', ');
+        var averageRating = data.volumeInfo.averageRating;
+        var thumbnail = data.volumeInfo.imageLinks.thumbnail;
+        var previewLink = data.volumeInfo.previewLink;
+
+        //append to #googleBooksData
+        $('#googleBooksData').append(`
+            <div class="book">
+                <img src="${thumbnail}" alt="${title}">
+                <h3>Title: ${title}</h3>&nbsp;
+                <p><strong>Subtitle:</strong> ${subtitle}</p>&nbsp;
+                <p><strong>Author(s):</strong> ${authors}</p> &nbsp;
+                <h4>Description:</h4> 
+                <p>${description}</p> &nbsp;
+                <p><strong>Published:</strong> ${publishedDate}</p>
+                <p><strong>ISBN-10:</strong> ${isbn10}</p>
+                <p><strong>ISBN-13:</strong> ${isbn13}</p>
+                <p><strong>Page Count:</strong> ${pageCount}</p>
+                <p><strong>Categories:</strong> ${categories}</p>
+                <p><strong>Average Rating:</strong> ${averageRating}</p> &nbsp;
+                <p><a href="${previewLink}" class="bookPreviewLink">Preview Book</a></p>
+                &nbsp;
+            </div>
+        `);
+    });
+
+            //fetch google books search.json
+    $.getJSON('json_m1/google-books-search.json', function (booksData) {
+        booksData.items.forEach(function(book) {
+
+            //same as above
+            //for simplicity and ease of editing/debugging, all data values are assigned to *var* variables
+            var title = book.volumeInfo.title;
+            var authors = book.volumeInfo.authors.join(', ');
+            var description = book.volumeInfo.description;
+            var thumbnail = book.volumeInfo.imageLinks.thumbnail;
+            var previewLink = book.volumeInfo.previewLink;
+
+            //append to #bookList
+            $('#bookList').append(`
+                <div class="bookItem">
+                    <img src="${thumbnail}" alt="${title}">
+                    <h3>${title}</h3>
+                    <p><strong>Author(s): </strong>${authors}</p>
+                    &nbsp;
+                    <p><strong>Description:</strong> ${description}</p>
+                    &nbsp;
+                    <p><a href="${previewLink}" class="bookPreviewLink">Preview Book</a></p>
+                    &nbsp;
+                </div>
+            `);
+        });
+    });
+});
+
+</script>
+</html>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HTML DOM</title>
+</head>
+
+<body><h1>HTML DOM</h1>
+<p>This example shows how to access each part of the HTML using DOM</p>
+
+<hr />
+
+<a id="w3clink" href="http://www.w3.org/">
+	<img id="w3cimg" src="http://www.w3.org/2008/site/images/logo-w3c-screen-lg" />
+	W3C
+</a>
+<h3>Various methods to access parts of the objects above</h3>
+
+<script>
+//use getElementById method and innerHTML
+document.write('<b>The link\'s innerText: </b>'+document.getElementById("w3clink").innerText);
+document.write('<br /><b>The link\'s innerHTML: </b>'+document.getElementById("w3clink").innerHTML);
+
+//using attributes array of an element to get attributes
+document.write('<br /><b>The link\'s attributes array, 2nd attrubute value (href): </b>'+document.getElementById("w3clink").attributes[1].nodeValue);
+document.write('<br /><b>The img\'s attributes array, 2nd attrubute value (src): </b>'+document.getElementById("w3cimg").attributes[1].nodeValue);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript">
+function displayGrade()
+{
+	var score=document.getElementById('score').value;
+	var grade;
+	if (score>= 90)
+		grade='A';
+	else if (score>= 80)
+		grade='B';
+	else if (score>= 70)
+		grade='C';
+	else
+		grade='F';
+
+	document.getElementById("result").innerHTML="Your score is "+score+' and your grade is '+grade;
+}
+</script>
+</head>
+
+<body>
+<h1>JavaScript click</h1>
+
+Enter your score: <input type="text" id="score" /><br />
+<input type="button" value="Enter a score" onclick="displayGrade()" />
+
+<div id="result"></div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>JavaScript function</title>
+
+	<script type="text/javascript">
+	//functions need to be defined first, usually in the head block.
+	function createList()
+	{
+		var level=5;
+		document.write("<ul>");
+		for (i=1;i<=level;i++)
+		{
+			document.write("<li>"+i+"</li>");
+		}
+		document.write("</ul>");
+		
+	}
+	
+	function createList2(level, type)	// with parameters
+	{
+		document.write("<"+type+">");
+		for (i=1;i<=level;i++)
+		{
+			document.write("<li>"+i+"</li>");
+		}
+		document.write("</"+type+">");
+	}
+	
+	</script>
+
+</head>
+
+<body>
+
+
+<h1>Function 1</h1>
+<p>This example shows void type functions.</p>
+
+<script type="text/javascript">
+createList();
+createList2(10,'ol');
+</script>
+
+</body>
+
+
+</html>

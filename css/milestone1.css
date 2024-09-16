@@ -1,0 +1,51 @@
+.container {
+    margin: 80px 0 0 20px ; 
+    /*margins added so it does not stick the left side of the screen*/
+    /*purely for visual appeal, not required*/
+    }
+
+    #m1 h2, #bookList h2 {
+        font-size: 24px;
+    }
+    .bookPreviewLink { /*link before*/
+        font-variation-settings: 'wght' 400;
+        color: #7a7a7a;
+    }
+
+    .bookPreviewLink:hover { /*link after hover; effect to give empahsis on a clickable link*/
+        font-variation-settings: 'wght' 700;
+        color: black;
+    }
+
+    .book, .bookItem { /*styling to prevent too much overflow and visual appeal*/
+        border: 1px solid #ccc;
+        background-color: #fff;
+        text-align: left;
+        max-width: 98.5%; /*personal preference, adjusts to size of window*/
+        margin-bottom: 10px; /*added space for visual seperation appeal*/
+    }
+
+    .book img, .bookItem img { /*book image styling so it does not stick to the edges, for visual appeal*/
+        margin: 10px 0 10px 10px;
+        display: block;
+    }
+
+    .book h3, .bookItem h3{ /*h3 text styling, prevent sticking to left*/
+        font-size: 25px;
+        margin-left: 10px;
+    }
+
+    .book h4 { /*h4 text styling*/
+        font-size: 20px;
+        margin-left: 10px;
+    }
+    
+    .book p, .bookItem p{ /*p text styling*/
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    #bookList { /* applies the following to all appended data under #bookList. */
+        display: block;
+        justify-content: space-between;
+    }

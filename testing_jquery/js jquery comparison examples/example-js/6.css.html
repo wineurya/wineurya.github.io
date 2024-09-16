@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title></title>
+        <script type="text/javascript">
+
+            function getRandomColorCode()
+	        {
+		        var red=Math.floor(Math.random()*255);
+		        var green=Math.floor(Math.random()*255);
+		        var blue=Math.floor(Math.random()*255);
+		        var colorCode="rgb("+red+","+green+","+blue+")";
+		        return colorCode;
+	        }
+
+	        function changeColor()
+	        {
+		        document.getElementById("result").style.backgroundColor=getRandomColorCode();
+	        }
+	
+	        function changeSize()
+	        {
+		        var h=Math.floor(Math.random()*100)+50;
+		        var w=Math.floor(Math.random()*200)+200;
+		        document.getElementById("result").style.height=h+"px";
+		        document.getElementById("result").style.width=w+"px";
+	        }
+
+	        function changeBorder()
+	        {
+		        var w=Math.floor(Math.random()*20)+5;
+		        document.getElementById("result").style.borderWidth=w+"px";
+		        document.getElementById("result").style.borderColor=getRandomColorCode();
+	        }
+
+    	        function changeStyle()
+	        {
+		        changeColor();
+		        changeSize();
+		        changeBorder();
+	        }
+    </script>
+    </head>
+    <body>
+
+        <h2>Change CSS styles using JS</h2>
+        <input type="button" onclick="changeStyle()" value="Change Style" />
+        <br />or 
+		<br />
+        <input type="button" onclick="changeColor()" value="Change Color" /> 
+        <input type="button" onclick="changeSize()" value="Change Size" />
+        <input type="button" onclick="changeBorder()" value="Change Border" />
+        <h1 id="result" style="border:solid; text-align:center">Welcome</h1>
+
+    </body>
+</html>
