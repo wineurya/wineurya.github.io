@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf - Favorites</title>
+    <!--font for dropdown arrow-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--adobe fonts for styling-->
+    <link rel="stylesheet" href="https://use.typekit.net/oma1ujq.css">
+    <!--main css style for visual consistency-->
+    <link rel="stylesheet" href="../css/styles.css">
+    <!--milestone 2 specific css-->
+    <link rel="stylesheet" href="milestone2.css">
+</head>
+<body>
+    <!--header area with navigation-->
+    <header>
+        <!--main navigation bar-->
+        <nav class="navbar">
+            <!--left logo section-->
+            <div class="logo">
+                <h1>WA</h1> <!--initials of name-->
+            </div>
+            <!--right side navigation links-->
+            <ul class="navLinks">
+                <li><a href="../index.html#home">Home</a></li> <!--home link-->
+                <li><a href="../index.html#about">About</a></li> <!--about link-->
+                <li class="dropdown">
+                    <!--dropdown menu for milestones-->
+                    <a href="../index.html#milestones" class="dropdownButton">Milestones &MediumSpace;<i class="fas fa-chevron-down"></i></a>
+                    <!--dropdown container, holds all milestones-->
+                    <div class="dropdownContainer">
+                        <a href="../milestone1.html">Milestone 1</a>
+                        <a href="home_m2.html">Milestone 2</a>
+                        <a href="../index.html#milestones">Milestone 3</a>
+                        <a href="../index.html#milestones">Milestone 4</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--main content area for bookshelf-->
+    <section id="bookshelf-section" class="container">
+        <h2>Favorites Bookshelf</h2> <!--section header-->
+        <!--this is where books will be displayed after loading-->
+        <div id="favoritesBookshelf">
+            <!--books from the favorites bookshelf will be dynamically loaded here-->
+        </div>
+    </section>
+
+    <!--jquery library for easier dom manipulation-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!--milestone 2 specific js, handles book loading and interactions-->
+    <script src="milestone2.js"></script>
+</body>
+</html>

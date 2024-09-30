@@ -23,6 +23,7 @@
         text-align: left;
         max-width: 98.5%; /*personal preference, adjusts to size of window*/
         margin-bottom: 10px; /*added space for visual seperation appeal*/
+        border-radius: 10px;
     }
 
     .book img, .bookItem img { /*book image styling so it does not stick to the edges, for visual appeal*/

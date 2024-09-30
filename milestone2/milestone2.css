@@ -1,0 +1,209 @@
+/* --- page container styling, fixed height to prevent unseen bug --- */
+#home_m2 {
+    margin-top: 80px; /* space for navbar */
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+/* --- search bar area --- */
+.search-box {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* space between input and button */
+    margin-top: 15px;
+}
+
+#searchTerm {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border 0.3s ease-in-out; /* smooth border change */
+}
+
+#searchTerm:focus {
+    border: 1px solid #333; /* focus border */
+}
+
+#searchButton {
+    padding: 8px 12px; /* match input height */
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#searchButton:hover {
+    background-color: #555; /* darken on hover */
+}
+
+/* --- bookshelf button styling --- */
+#bookshelfButton {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #777;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#bookshelfButton:hover {
+    background-color: #555; /* darker on hover */
+}
+
+/* --- search results container --- */
+#results-container {
+    padding: 20px;
+    text-align: center;
+    display: none; /* hidden until search */
+}
+
+#resultsHeader {
+    margin-top: 30px;
+    font-size: 24px;
+    color: #333;
+    display: none; /* show when search happens */
+}
+
+/* --- page dropdown --- */
+#resultsHeader, #pageLabel {
+    font-size: 24px;
+    color: #333;
+    display: inline-block;
+    margin: 10px;
+}
+
+#pageSelect {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* --- search results area --- */
+#searchResults {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* align left */
+    gap: 20px;
+}
+
+/* --- book item styling --- */
+.book-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    max-width: 200px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.book-item img {
+    max-width: 120px;
+    margin-bottom: 10px;
+}
+
+.book-item h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.book-item a {
+    display: block;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.book-item a:hover {
+    color: #000;
+    font-weight: bold;
+}
+
+/* --- book details page --- */
+#book-details {
+    margin: 60px auto;
+    padding: 20px;
+    max-width: 1000px;
+}
+
+#book-details h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#book-details h2::after, #bookshelf-section h2::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: grey;
+    margin-bottom: 10px;
+}
+
+/* --- bookshelf section --- */
+#bookshelf-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#bookshelf-section h2 {
+    margin: 10px 0 25px; /* space around header */
+    font-size: 32px;
+}
+
+#bookshelf-intro {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+#favoritesBookshelf {
+    display: flex;
+    flex-wrap: wrap; /* allow wrapping */
+    justify-content: flex-start; /* align left */
+    gap: 20px; /* space between books */
+}
+
+/* --- pagination buttons --- */
+#pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 1px solid #333;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.pagination-button.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.pagination-button:hover {
+    background-color: #555;
+    color: #fff;
+}
+
+/* --- shared book elements --- */
+.book-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+.book-item a, .book a {
+    display: block;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.book-item a:hover, .book a:hover {
+    color: #000;
+    text-decoration: underline;
+}
