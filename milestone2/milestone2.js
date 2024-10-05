@@ -21,7 +21,7 @@ $(document).ready(function () {
             var searchTerm = $('#searchTerm').val().trim(); // get input
             if (searchTerm !== "") { // only search if not empty
                 var startIndex = (currentPage - 1) * maxResultsPerPage;
-                var searchURL = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&startIndex=${startIndex}&maxResults=${maxResultsPerPage}`;
+                var searchURL = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&startIndex=${startIndex}&maxResults=${maxResultsPerPage}&key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
 
                 // get json data from api
                 $.getJSON(searchURL, function (data) {
@@ -79,7 +79,7 @@ $(document).ready(function () {
         var bookId = params.get('id'); // get book id from url
 
         if (bookId) { // if book id is present
-            var detailsURL = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
+            var detailsURL = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
 
             // get book details
             $.getJSON(detailsURL, function (data) {
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
     // if on bookshelf_m2.html, show favorite books
     if (window.location.pathname.includes("bookshelf_m2.html")) {
-        var bookshelfURL = `https://www.googleapis.com/books/v1/users/104332337407712744214/bookshelves/0/volumes`;
+        var bookshelfURL = `https://www.googleapis.com/books/v1/users/104332337407712744214/bookshelves/0/volumes?key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
 
         // get favorites from bookshelf
         $.getJSON(bookshelfURL, function (data) {
