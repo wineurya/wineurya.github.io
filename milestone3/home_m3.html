@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestone 3 - Unified Page</title>
+    <!-- font-awesome library for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- adobe fonts, purely for typography visuals -->
+    <link rel="stylesheet" href="https://use.typekit.net/oma1ujq.css">
+    <!-- main css, general styles shared across pages -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* --- page container styling, fixed height to prevent bug where search results did not appear --- */
+        #main-container {
+            margin-top: 80px; /* space for navbar */
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        /* --- search bar and bookshelf button area --- */
+        .search-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* space between input and button */
+            margin-top: 15px;
+        }
+
+        #search-term {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: border 0.3s ease-in-out; /* smooth border change */
+        }
+
+        #search-term:focus {
+            border: 1px solid #333; /* focus border */
+        }
+
+        #search-button, #bookshelf-button {
+            padding: 8px 12px; /* match input height */
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #searchButton:hover, #bookshelfButton:hover {
+            background-color: #555; /* darken on hover */
+        }
+
+        /* --- results container --- */
+        #results-container {
+            padding: 20px;
+            text-align: left;
+            display: none; /* hidden until search or bookshelf is selected */
+        }
+
+        #results-header {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #333;
+            display: none; /* show when search or bookshelf is active */
+        }
+
+        /* --- pagination buttons --- */
+        #pagination {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pagination-button {
+            padding: 10px 15px;
+            border: 2px solid #b5b5b5;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pagination-button:hover {
+            background-color: #d3d3d3;
+        }
+
+        /* --- search and bookshelf results area --- */
+        .book-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-item h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .book-item img {
+            max-width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .book-item button {
+            align-self: start;
+            padding: 10px 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .book-item button:hover {
+            background-color: #7e7e7e; /* lighten on hover */
+        }
+
+        /* --- book details section --- */
+        #book-details {
+            margin: 60px auto;
+            padding: 20px;
+            max-width: 95vw; /* so it covers the entire screen on full screen*/
+            border-top: 2px solid #ccc;
+        }
+
+        /* --- preview link button styling --- */
+        #book-details a {
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            font-variation-settings: 'wght' 500;
+        }
+
+        #book-details a:hover {
+            font-variation-settings: 'wght' 200; /* unbold on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- nav area at top, logo and links -->
+    <header>
+        <!--main navigation bar-->
+        <nav class="navbar">
+            <!--left side logo area-->
+            <div class="logo">
+                <h1>WA</h1> <!--initials of name-->
+            </div>
+            <!--right side links, dropdown added-->
+            <ul class="navLinks">
+                <li><a href="../index.html#home">Home</a></li> <!--home page-->
+                <li><a href="../index.html#about">About</a></li> <!--about section-->
+                <li class="dropdown">
+                    <!--dropdown menu for milestones-->
+                    <a href="../index.html#milestones" class="dropdownButton">
+                        Milestones &MediumSpace;<i class="fas fa-chevron-down"></i> <!--down arrow icon-->
+                    </a>
+                    <!--dropdown container, links to each milestone-->
+                    <div class="dropdownContainer">
+                        <a href="../milestone1.html">Milestone 1</a>
+                        <a href="../milestone2/home_m2.html">Milestone 2</a>
+                        <a href="../milestone3/home_m3.html">Milestone 3</a>
+                        <a href="../index.html#milestones">Milestone 4</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- main container for home_m3 content -->
+    <section id="main-container" class="container">
+        <h3 style="margin-top: 20px;">Book Search</h3> <!-- search header, centered under nav -->
+        
+        <!-- search box and bookshelf button area -->
+        <div class="search-box">
+            <input type="text" id="search-term" placeholder="Search for Book">
+            <!-- search button with search icon inside -->
+            <button id="search-button"><i class="fas fa-search"></i></button>
+            <!-- bookshelf button, switches to bookshelf view -->
+            <button id="bookshelf-button">My Bookshelf</button>
+        </div>
+
+        <!-- results container, initially hidden until search or bookshelf is done -->
+        <div id="results-container">
+            <h3 id="results-header">Results</h3> <!-- results title -->
+            <div id="search-results"></div> <!-- container for search results -->
+            <div id="pagination"></div> <!-- pagination buttons area -->
+        </div>
+    </section>
+
+    <!-- book details section -->
+    <section id="book-details" class="container">
+        <h2>Book Details</h2> <!-- header text -->
+        <div id="book-info"></div> <!-- book info placeholder -->
+    </section>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var maxResultsPerPage = 10; // set 10 books per page
+            var totalPages = 5; // total of 5 pages for 50 books max
+            var currentPage = 1;
+            var currentView = "search";
+    
+            // handle search button click
+            $('#search-button').on('click', function () {
+                currentView = "search";
+                currentPage = 1;
+                search();
+            });
+    
+            // handle bookshelf button click
+            $('#bookshelf-button').on('click', function () {
+                currentView = "bookshelf";
+                currentPage = 1;
+                bookshelf();
+            });
+    
+            // handle 'Enter' key press in search input
+            $('#search-term').on('keypress', function (event) {
+                if (event.which === 13) { // if enter key is pressed
+                    currentView = "search";
+                    currentPage = 1;
+                    search();
+                }
+            });
+    
+            function search() {
+                var searchTerm = $('#search-term').val().trim();
+    
+                var startIndex = (currentPage - 1) * maxResultsPerPage;
+                var searchURL = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&startIndex=${startIndex}&maxResults=${maxResultsPerPage}&key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
+    
+                // fetch search results from API
+                $.getJSON(searchURL, function (data) {
+                    $('#search-results').empty(); // clear previous results
+                    $('#pagination').empty(); // clear previous pagination buttons
+    
+                    $('#results-header').text("Search Results").show(); // show results header
+    
+                    if (data.items) { // if items found
+                        data.items.forEach(function (item) {
+                            // add each book to results section
+                            $('#search-results').append(`
+                                <div class="book-item">
+                                    <img src="${item.volumeInfo.imageLinks?.thumbnail}" alt="${item.volumeInfo.title} Thumbnail">
+                                    <h3>${item.volumeInfo.title}</h3>
+                                    <button onclick="viewDetails('${item.id}')">View Details</button>
+                                </div>
+                            `);
+                        });
+                        pageButtons(); // create pagination buttons
+                    }
+    
+                    $('#results-container').show(); // show results container
+                });
+            }
+    
+            function bookshelf() {
+                var bookshelfURL = `https://www.googleapis.com/books/v1/users/104332337407712744214/bookshelves/0/volumes?key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
+    
+                // fetch bookshelf data
+                $.getJSON(bookshelfURL, function (data) {
+                    $('#search-results').empty(); // clear previous results
+                    $('#pagination').empty(); // clear old pagination
+    
+                    $('#results-header').text("My Bookshelf").show(); // show bookshelf header
+    
+                    if (data.items) { // if items found
+                        data.items.forEach(function (item) {
+                            // add each book to results section
+                            $('#search-results').append(`
+                                <div class="book-item">
+                                    <img src="${item.volumeInfo.imageLinks?.thumbnail}" alt="${item.volumeInfo.title} Thumbnail">
+                                    <h3>${item.volumeInfo.title}</h3>
+                                    <button onclick="viewDetails('${item.id}')">View Details</button>
+                                </div>
+                            `);
+                        });
+                        pageButtons(); // create pagination buttons
+                    }
+    
+                    $('#results-container').show(); // show results container
+                });
+            }
+    
+            function pageButtons() {
+                for (var i = 1; i <= totalPages; i++) { // create 5 pagination buttons for 5 pages
+                    // create pagination button
+                    var button = $('<button>', {
+                        class: 'pagination-button',
+                        text: i,
+                        click: function () {
+                            currentPage = parseInt($(this).text());
+                            if (currentView === "search") {
+                                search(); // fetch search results for the selected page
+                            } else {
+                                bookshelf(); // fetch bookshelf results for the selected page
+                            }
+                        }
+                    });
+                    $('#pagination').append(button); // add button to pagination section
+                }
+            }
+    
+            window.viewDetails = function (bookId) {
+                var detailsURL = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
+    
+                // fetch book details
+                $.get(detailsURL, function (data) {
+                    var book = data.volumeInfo;
+                    // build book details HTML
+                    var bookInfoHTML = `
+                        <div class="book">
+                            <img src="${book.imageLinks?.thumbnail}" alt="${book.title} Thumbnail">
+                            <h3>Title: ${book.title}</h3>
+                            <p><strong>Subtitle:</strong> ${book.subtitle}</p>
+                            <p><strong>Author(s):</strong> ${book.authors?.join(', ')}</p>
+                            <h4>Description:</h4>
+                            <p>${book.description}</p>
+                            <p><strong>Publisher:</strong> ${book.publisher}</p>
+                            <p><strong>Published Date:</strong> ${book.publishedDate}</p>
+                            <p><strong>ISBN-10:</strong> ${book.industryIdentifiers?.[0]?.identifier}</p>
+                            <p><strong>ISBN-13:</strong> ${book.industryIdentifiers?.[1]?.identifier}</p>
+                            <p><a href="${book.previewLink}" target="_blank">Preview Book</a></p>
+                        </div>
+                    `;
+                    $('#book-info').html(bookInfoHTML); // add book info to details section
+                });
+            }
+        });
+    </script>
+</body>
+</html>
