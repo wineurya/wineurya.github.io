@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestone 4 - SPA</title>
+    <!-- font-awesome library for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- adobe fonts, purely for typography visuals -->
+    <link rel="stylesheet" href="https://use.typekit.net/oma1ujq.css">
+    <!-- main css, general styles shared across pages -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        #main-container {
+            margin-top: 80px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        #search-term {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: border 0.3s ease-in-out;
+        }
+
+        #search-term:focus {
+            border: 1px solid #333;
+        }
+
+        #search-button, #bookshelf-button, #grid-view-button, #list-view-button {
+            padding: 8px 12px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #search-button:hover, #bookshelf-button:hover, #grid-view-button:hover, #list-view-button:hover {
+            background-color: #555;
+        }
+
+        #results-container {
+            padding: 20px;
+            text-align: left;
+            display: none;
+        }
+
+        #results-header {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #333;
+            display: none;
+        }
+
+        #pagination {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pagination-button {
+            padding: 10px 15px;
+            border: 2px solid #b5b5b5;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pagination-button:hover {
+            background-color: #d3d3d3;
+        }
+
+        .book-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-item h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .book-item img {
+            max-width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .book-item button {
+            align-self: start;
+            padding: 10px 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .book-item button:hover {
+            background-color: #7e7e7e;
+        }
+
+        #book-details {
+            margin: 60px auto;
+            padding: 20px;
+            max-width: 95vw;
+            border-top: 2px solid #ccc;
+        }
+
+        #book-details a {
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            font-variation-settings: 'wght' 500;
+        }
+
+        #book-details a:hover {
+            font-variation-settings: 'wght' 200;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>WA</h1>
+            </div>
+            <ul class="navLinks">
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li class="dropdown">
+                    <a href="../index.html#milestones" class="dropdownButton">
+                        Milestones &MediumSpace;<i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdownContainer">
+                        <a href="../milestone1.html">Milestone 1</a>
+                        <a href="../milestone2/home_m2.html">Milestone 2</a>
+                        <a href="../milestone3/home_m3.html">Milestone 3</a>
+                        <a href="../index.html#milestones">Milestone 4</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="main-container" class="container">
+        <h3 style="margin-top: 20px;">Book Search</h3>
+        <div class="search-box">
+            <input type="text" id="search-term" placeholder="Search for Book">
+            <button id="search-button"><i class="fas fa-search"></i></button>
+            <button id="bookshelf-button">My Bookshelf</button>
+            <button id="grid-view-button">Grid View</button>
+            <button id="list-view-button">List View</button>
+        </div>
+        <div id="results-container">
+            <h3 id="results-header">Results</h3>
+            <div id="search-results"></div>
+            <div id="pagination"></div>
+        </div>
+    </section>
+
+    <section id="book-details" class="container">
+        <h2>Book Details</h2>
+        <div id="book-info"></div>
+    </section>
+
+    <section id="search-history" class="container">
+        <h3>Search History</h3>
+        <div id="history-container"></div>
+    </section>
+
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer src="../javascript/mustache.min.js"></script>
+    <script>
+        console.log(Mustache ? "Mustache is loaded successfully" : "Mustache is not loaded");
+    </script>
+    <script>
+        $(document).ready(function () {
+            var maxResultsPerPage = 10;
+            var totalPages = 5;
+            var currentPage = 1;
+            var currentView = "search";
+            var searchHistory = [];
+
+            $('#search-button').on('click', function () {
+                currentView = "search";
+                currentPage = 1;
+                search();
+            });
+    
+            $('#bookshelf-button').on('click', function () {
+                currentView = "bookshelf";
+                currentPage = 1;
+                bookshelf();
+            });
+    
+            $('#search-term').on('keypress', function (event) {
+                if (event.which === 13) {
+                    currentView = "search";
+                    currentPage = 1;
+                    search();
+                }
+            });
+
+            $('#grid-view-button').on('click', function () {
+                $('#search-results').removeClass('list-view').addClass('grid-view');
+            });
+
+            $('#list-view-button').on('click', function () {
+                $('#search-results').removeClass('grid-view').addClass('list-view');
+            });
+
+            function search() {
+                var searchTerm = $('#search-term').val().trim();
+                if (!searchTerm) return;
+
+                updateSearchHistory(searchTerm);
+    
+                var startIndex = (currentPage - 1) * maxResultsPerPage;
+                var searchURL = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&startIndex=${startIndex}&maxResults=${maxResultsPerPage}&key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
+    
+                $.getJSON(searchURL, function (data) {
+                    $('#search-results').empty();
+                    $('#pagination').empty();
+    
+                    $('#results-header').text("Search Results").show();
+    
+                    if (data.items) {
+                        var template = document.getElementById('book-template').innerHTML;
+                        var rendered = Mustache.render(template, { items: data.items });
+                        $('#search-results').html(rendered);
+                        pageButtons();
+                    }
+    
+                    $('#results-container').show();
+                });
+            }
+    
+            function bookshelf() {
+                var bookshelfURL = `https://www.googleapis.com/books/v1/users/104332337407712744214/bookshelves/0/volumes?key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
+    
+                $.getJSON(bookshelfURL, function (data) {
+                    $('#search-results').empty();
+                    $('#pagination').empty();
+    
+                    $('#results-header').text("My Bookshelf").show();
+    
+                    if (data.items) {
+                        var template = document.getElementById('book-template').innerHTML;
+                        var rendered = Mustache.render(template, { items: data.items });
+                        $('#search-results').html(rendered);
+                        pageButtons();
+                    }
+    
+                    $('#results-container').show();
+                });
+            }
+    
+            function pageButtons() {
+                $('#pagination').empty();
+                for (var i = 1; i <= totalPages; i++) {
+                    var button = $('<button>', {
+                        class: 'pagination-button',
+                        text: i,
+                        click: function () {
+                            currentPage = parseInt($(this).text());
+                            if (currentView === "search") {
+                                search();
+                            } else {
+                                bookshelf();
+                            }
+                        }
+                    });
+                    $('#pagination').append(button);
+                }
+            }
+    
+            window.viewDetails = function (bookId) {
+                var detailsURL = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=AIzaSyBQc2lufwPOt41iTkjRlH_Oo2IXpN-n3b8`;
+    
+                $.get(detailsURL, function (data) {
+                    var book = data.volumeInfo;
+                    var bookInfoHTML = `
+                        <div class="book">
+                            <img src="${book.imageLinks?.thumbnail || ''}" alt="${book.title} Thumbnail">
+                            <h3>Title: ${book.title}</h3>
+                            <p><strong>Subtitle:</strong> ${book.subtitle || 'N/A'}</p>
+                            <p><strong>Author(s):</strong> ${book.authors?.join(', ') || 'N/A'}</p>
+                            <h4>Description:</h4>
+                            <p>${book.description || 'No description available'}</p>
+                            <p><strong>Publisher:</strong> ${book.publisher || 'N/A'}</p>
+                            <p><strong>Published Date:</strong> ${book.publishedDate || 'N/A'}</p>
+                            <p><strong>ISBN-10:</strong> ${book.industryIdentifiers?.[0]?.identifier || 'N/A'}</p>
+                            <p><strong>ISBN-13:</strong> ${book.industryIdentifiers?.[1]?.identifier || 'N/A'}</p>
+                            <p><a href="${book.previewLink}" target="_blank">Preview Book</a></p>
+                        </div>
+                    `;
+                    $('#book-info').html(bookInfoHTML);
+                });
+            }
+
+            function updateSearchHistory(searchTerm) {
+                if (!searchHistory.includes(searchTerm)) {
+                    searchHistory.push(searchTerm);
+                    var historyItem = $('<div>').text(searchTerm).addClass('history-item').on('click', function () {
+                        $('#search-term').val(searchTerm);
+                        search();
+                    });
+                    $('#history-container').append(historyItem);
+                }
+            }
+        });
+    </script>
+    <script id="book-template" type="x-tmpl-mustache">
+        {{#items}}
+            <div class="book-item">
+                <img src="{{volumeInfo.imageLinks.thumbnail}}" alt="{{volumeInfo.title}} Thumbnail">
+                <h3>{{volumeInfo.title}}</h3>
+                <button onclick="viewDetails('{{id}}')">View Details</button>
+            </div>
+        {{/items}}
+    </script>
+</body>
+</html>
