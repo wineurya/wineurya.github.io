@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://use.typekit.net/oma1ujq.css">
     <!-- main css, general styles shared across pages -->
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js"></script>
     <style>
         #main-container {
             margin-top: 80px;
@@ -81,34 +83,40 @@
         }
 
         .book-item {
-            border-bottom: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .book-item:hover {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .list-view {
             display: flex;
             flex-direction: column;
         }
 
-        .book-item h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
+        .grid-view .book-item {
+            display: block;
+            text-align: center;
         }
 
-        .book-item img {
-            max-width: 120px;
-            margin-bottom: 10px;
+        .list-view .book-item {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
 
-        .book-item button {
-            align-self: start;
-            padding: 10px 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
-        .book-item button:hover {
-            background-color: #7e7e7e;
+        .list-view .book-item img {
+            margin-right: 15px;
         }
 
         #book-details {
@@ -127,6 +135,25 @@
 
         #book-details a:hover {
             font-variation-settings: 'wght' 200;
+        }
+
+        .book-item button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .book-item button:hover {
+            background-color: #555;
+        }
+
+        #search-history {
+            margin:0px 0 0px 40px;
         }
     </style>
 </head>
@@ -180,8 +207,6 @@
         <div id="history-container"></div>
     </section>
 
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script defer src="../javascript/mustache.min.js"></script>
     <script>
         console.log(Mustache ? "Mustache is loaded successfully" : "Mustache is not loaded");
     </script>
