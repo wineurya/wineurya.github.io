@@ -305,9 +305,9 @@ main {
 
 .actor-poster {
     width: 30vw;
-    height:30vh;
+    height: 30vh;
     border-radius: 8px;
-    object-fit: cover;
+    object-fit: fixed;
 }
 
 .actor-info {
