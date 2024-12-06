@@ -307,7 +307,7 @@ main {
     width: 30vw;
     height: 30vh;
     border-radius: 8px;
-    object-fit: fixed;
+    object-fit: fill;
 }
 
 .actor-info {
