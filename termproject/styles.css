@@ -304,7 +304,7 @@ main {
 }
 
 .actor-poster {
-    width: 100%;
+    width: 30vw;
     height:30vh;
     border-radius: 8px;
     object-fit: cover;
