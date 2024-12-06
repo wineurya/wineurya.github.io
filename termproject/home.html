@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Database SPA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Moviepedia</h1>
+        <nav id="navbar">
+            <button id="popular_movies">Popular Movies</button>
+            <button id="search_movies">Search Movies</button>
+            <button id="discover_tv">Discover TV Shows</button>
+        </nav>
+    </header>
+    <main id="main_content">
+        <section id="view_controls">
+            <button id="list_view" class="active">List View</button>
+            <button id="grid_view">Grid View</button>
+        </section>
+        
+        <section id="search_section">
+            <input type="text" id="search_input" placeholder="Search for movies or TV shows">
+            <button id="search_button">Search</button>
+        </section>
+
+        <section id="filter_section">
+            <label for="sort_by">Sort By:</label>
+            <select id="sort_by">
+                <option value="popularity.desc">Most Popular</option>
+                <option value="release_date.desc">Newest</option>
+                <option value="vote_average.desc">Top Rated</option>
+            </select>
+            <button id="apply_filters">Apply</button>
+        </section>
+        <section id="results_section">
+        </section>
+        <section id="details_section">
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+/* general styles */
+* {
+    font-family: 'Lexend', sans-serif;
+    font-weight: 15;
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    margin: 0;
+    background-color: #EBEFEE;
+    color: #1b1b1b; 
+    letter-spacing: -1.5px;
+}
+
+/* header -- site-wide header styling */
+header {
+    background-color: #f4f5f5;
+    padding: 10px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+/* navbar -- navigation buttons styling */
+#navbar {
+    margin-top: 10px;
+}
+
+#navbar button {
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #d6d6d6;
+    background-color: #e6e6e6;
+    color: #1b1b1b;
+    cursor: pointer;
+}
+
+#navbar button:hover {
+    background-color: #dddddd;
+}
+
+/* main content */
+main {
+    padding: 20px;
+}
+
+/* view controls -- buttons for switching views (list/grid) */
+#view_controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#view_controls button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: 1px solid #d6d6d6;
+    background-color: #f4f5f5;
+    color: #1b1b1b;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#view_controls button.active {
+    background-color: #888888;
+    color: #ffffff;
+}
+
+#view_controls button:hover {
+    background-color: #666666;
+    color: #ffffff;
+}
+
+/* search section -- styling for search input and button */
+#search_section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#search_input {
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    padding: 10px;
+    width: 300px;
+    border: none;
+    background-color: #ffffff;
+    color: #303030;
+}
+
+#search_button {
+    border-radius: 0 8px 8px 0;
+    padding: 10px 20px;
+    background-color: #888888;
+    color: #F5F5F5;
+    border: none;
+    cursor: pointer;
+}
+
+#search_button:hover {
+    background-color: #7c7c7c;
+}
+
+/* results section -- general result container */
+#results_section {
+    margin-top: 20px;
+}
+
+/* results -- list view styling */
+#results_section.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+/* results -- grid view styling */
+#results_section.grid-view {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px; 
+}
+
+/* individual result item */
+.result-item {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    border: 1px solid #d6d6d6;
+}
+
+/* list view -- individual result item styling */
+.list-view .result-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+/* grid view -- individual result item styling */
+.grid-view .result-item {
+    flex: 1 1 calc(33.333% - 20px); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* thumbnails -- image styling for results */
+.thumbnail {
+    border-radius: 8px;
+}
+
+/* list view -- thumbnail size */
+.list-view .thumbnail {
+    width: 100px;
+    height: auto;
+    margin-right: 15px;
+}
+
+/* grid view -- thumbnail size */
+.grid-view .thumbnail {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px; 
+}
+
+/* details section -- text content for results */
+.details {
+    color: #1b1b1b;
+}
+
+.details h3 {
+    margin: 0 0 5px;
+    font-size: 1.2em;
+}
+
+.details p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* pagination -- navigation for pages */
+#pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 5px;
+}
+
+.page-button {
+    padding: 5px 10px;
+    border: 1px solid #d6d6d6;
+    background-color: #f4f5f5;
+    color: #1b1b1b;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.page-button.active {
+    background-color: #d6d6d6;
+}
+
+.page-button:hover {
+    background-color: #cccccc;
+}
+
+/* details button -- button for accessing more information */
+.details-button {
+    margin-top: 20px;
+    padding: 5px 10px;
+    background-color: #d8d8d8;
+    color: #535353;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.details-button:hover {
+    background-color: #a7a7a7;
+}
+
+/* details page -- layout for individual item details */
+.details-page {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.details-poster {
+    width: 100%;
+    border-radius: 8px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.details-info {
+    flex-grow: 1;
+}
+
+/* back button -- button for returning to previous page */
+#back_button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #888888;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#back_button:hover {
+    background-color: #666666;
+}
+
+/* filter section -- filters and sorting options */
+#filter_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#filter_section label {
+    font-size: 1em;
+    color: #1b1b1b;
+}
+
+#sort_by {
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    background-color: #f4f5f5;
+    color: #1b1b1b;
+}
+
+#apply_filters {
+    padding: 8px 15px;
+    font-size: 1em;
+    background-color: #888888;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#apply_filters:hover {
+    background-color: #666666;
+}
+
+/* actor details -- styling for actor information display */
+.actor-details {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f4f5f5;
+    border-radius: 8px;
+}
+
+.actor-poster {
+    width: 100%;
+    height:30vh;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.actor-info {
+    flex-grow: 1;
+}
+
+.actor-info h2 {
+    margin: 0 0 10px;
+}
+
+.actor-info p {
+    margin: 5px 0;
+}
+
+/* cast member link */
+.cast-member {
+    color: #464646; 
+    text-decoration: none; 
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cast-member:hover {
+    color: #565c63; 
+}
+
+/* reviews -- individual review cards */
+.review-item {
+    background-color: #f9f9f9;
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.review-item h4 {
+    margin: 0 0 5px;
+    font-style: underline;
+    color: #464646;
+}
+
+.review-item p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #333;
+}
